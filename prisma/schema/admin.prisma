@@ -1,0 +1,20 @@
+enum Role {
+    Admin
+    Client
+}
+
+model Admin {
+    id                   Int        @id @default(autoincrement())
+    email                String     @unique
+    password             String?
+    role                 Role       @default(Client)
+    companyName          String?
+    googleId             String?    @unique
+    phoneNo              String?    @unique
+    refreshToken         String?
+    resetPasswordToken   String?
+    resetPasswordExpires DateTime?
+    createdAt            DateTime   @default(now())
+    events               Event[]
+    employees            Employee[]
+}

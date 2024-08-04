@@ -1,0 +1,23 @@
+enum EventStatus {
+    ACTIVE
+    COMPLETED
+}
+
+model Event {
+    id                 Int                 @id @default(autoincrement())
+    eventName          String
+    isPaid             Boolean
+    address            String
+    startDate          DateTime
+    endDate            DateTime
+    status             EventStatus         @default(ACTIVE)
+    userJourney        String[]
+    eventTemplate      Json
+    attendieType       String[]
+    createdAt          DateTime            @default(now())
+    adminId            Int // Foreign key field
+    admin              Admin               @relation(fields: [adminId], references: [id], onDelete: Cascade) // Define the relation
+    eventRegistrations EventRegistration[]
+    userJournerys      UserJourney[]
+    eventAssignments   EventAssignment[]
+}

@@ -1,0 +1,25 @@
+model Employee {
+    id           Int               @id @default(autoincrement())
+    name         String
+    loginId      String
+    phoneNo      String
+    password     String
+    refreshToken String?
+    createdAt    DateTime          @default(now())
+    adminId      Int
+    Admin        Admin             @relation(fields: [adminId], references: [id], onDelete: Cascade)
+    assignments  EventAssignment[]
+
+    @@unique([loginId, adminId])
+}
+
+model EventAssignment {
+    id         Int      @id @default(autoincrement())
+    employeeId Int
+    eventId    Int
+    role       String?
+    employee   Employee @relation(fields: [employeeId], references: [id])
+    event      Event    @relation(fields: [eventId], references: [id])
+
+    @@unique([employeeId, eventId])
+}
